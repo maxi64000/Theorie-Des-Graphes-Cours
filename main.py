@@ -23,6 +23,14 @@ matrice = [
     [0, 0, 2, 0]
 ]
 
+matrice2 = [
+    [0, 10, 5, 0, 7],
+    [0, 0, 2, 1, 0],
+    [0, 3, 0, 9, 2],
+    [0, 0, 0, 0, 4],
+    [0, 0, 0, 6, 0]
+]
+
 def getListeDegres(matrice):
     listeDegres = []
 
@@ -96,6 +104,36 @@ def setMatrice_Algorythme_de_Floyd_Warshal(matrice):
                             if matrice[i][j] > matrice[i][k] + matrice[k][j]:
                                 matrice[i][j] = matrice[i][k] + matrice[k][j]
 
+def Alhorythme_de_Dijkstra(matrice):
+    listeSommets = [0, 100, 100, 100, 100]
+    listeSommetsMarques = [0, 0, 0, 0, 0]
+    countSommetsMarques = 0
+
+    i = 0
+    while countSommetsMarques < len(matrice):
+        listeSommetsMarques[i] = 1
+        countSommetsMarques = countSommetsMarques + 1
+
+        for j in range(len(matrice[i])):
+            if matrice[i][j] > 0:
+                if (matrice[i][j] + listeSommets[i]) < listeSommets[j]:
+                    listeSommets[j] = matrice[i][j] + listeSommets[i]
+
+        valueMinVoisin = 100
+        minVoisin = 0
+
+        for k in range(len(listeSommets)):
+            if listeSommetsMarques[k] == 0:
+                if listeSommets[k] < valueMinVoisin:
+                    valueMinVoisin = listeSommets[k]
+                    minVoisin = k
+
+        i = minVoisin
+
+    return listeSommets
+
+
+
 def main(matrice):
     print("Parcours en largeur : \n")
 
@@ -123,6 +161,8 @@ def main(matrice):
         print("")
 
         print("Degre de " + listeSommets[i] + " : " + str(getListeDegres(matrice)[i]) + "\n")
+
+print(Alhorythme_de_Dijkstra(matrice2))
 
 print("Floyd Warshal : \n")
 
