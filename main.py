@@ -91,6 +91,35 @@ def getParcoursLargeur(matrice):
 
     return parcoursLargeur
 
+def getParcoursProfondeur(matrice):
+    parcoursProfondeur = []
+
+    prevId = []
+    prevId.append(0)
+    number = 1
+
+    parcoursProfondeur.append(listeSommets[0])
+
+    while len(parcoursProfondeur) < len(matrice):
+        for i in range(len(matrice[prevId[len(prevId) - number]])):
+            if matrice[prevId[len(prevId) - number]][i] == 1:
+                estMarque = False
+
+                for k in range(len(parcoursProfondeur)):
+                    if parcoursProfondeur[k] == listeSommets[i]:
+                        estMarque = True
+
+                if estMarque == False:
+                    prevId.append(i)
+                    parcoursProfondeur.append(listeSommets[i])
+                else:
+                    if i == len(matrice[prevId[len(prevId) - number]]) - 1:
+                        number = number + 1
+            else:
+                if i == len(matrice[prevId[len(prevId) - number]]) - 1:
+                    number = number + 1
+
+    return parcoursProfondeur
 
 def setMatrice_Algorythme_de_Floyd_Warshal(matrice):
     for n in range(len(matrice)):
@@ -143,6 +172,8 @@ def main(matrice):
 
     print("Parcours en profondeur : \n")
 
+    print(getParcoursProfondeur(matrice))
+
     print("");
 
     for i in range(len(matrice)):
@@ -162,7 +193,15 @@ def main(matrice):
 
         print("Degre de " + listeSommets[i] + " : " + str(getListeDegres(matrice)[i]) + "\n")
 
+print("Dijkstra : \n")
+
+print(matrice2)
+
+print("")
+
 print(Alhorythme_de_Dijkstra(matrice2))
+
+print("")
 
 print("Floyd Warshal : \n")
 
